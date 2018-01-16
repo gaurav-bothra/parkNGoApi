@@ -1,0 +1,36 @@
+<style>
+    .icon_style{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 20px;
+    color: white;
+    cursor:pointer; 
+}
+</style>
+
+{{#if success_msg}}
+
+<div class="row">
+    <div id="card-alert" class="card green" style="margin-top:10px; margin-left: 20px;margin-right: 20px;margin-bottom: -40px">
+                      <div class="card-content white-text">
+                        <p>SUCCESS : {{success_msg}}.</p>
+                      </div>
+                        <i class="fa fa-times icon_style" id="alert_close" aria-hidden="true"></i>
+                      </button>
+                    </div>
+</div>
+{{/if}}
+
+{{#if error_msg}}
+
+<div class="row">
+    <div id="card-alert" class="card red" style="margin-top:10px; margin-left: 20px;margin-right: 20px;margin-bottom: -40px">
+                      <div class="card-content white-text">
+                        <p>Danger : {{error_msg}}.</p>
+                      </div>
+                        <i class="fa fa-times icon_style" id="alert_close" aria-hidden="true"></i>
+                      </button>
+                    </div>
+</div>
+{{/if}}

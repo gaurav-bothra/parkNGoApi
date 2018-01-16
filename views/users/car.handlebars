@@ -1,0 +1,83 @@
+<br>
+<br>
+ {{#each vehicle}}
+  <div class="row">
+    <div class="col s12">
+        <div class="card-panel white">
+            <div class="card-content black-text">
+                <span class="card-title">{{../user}}</span>
+                <p class="blue-grey-text lighten-3-text">{{vehicleNo}}
+                    <b style="margin-left: 150px">{{vehicleModel}} </b>
+                </p>
+            </div>
+        </div>
+    </div>
+</div> 
+{{else}} 
+<p>not</p>
+{{/each}}
+
+
+<!-- Modal Structure -->
+<form method="POST" action="/user/car">
+<div id="modal1" class="modal">
+    <div class="modal-content">
+        
+        <h4>Add Car</h4>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="ownerName" type="text" class="validate" value="{{user}}" disabled>
+                <label for="Owner Name">Owner Name</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="vehicleNo" type="text" class="validate" name="vehicleNo">
+                <label for="email">Vehicle No</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="vehicleModel" type="text" class="validate" name="vehicleModel">
+                <label for="carModel">Vehicle Model</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="vehicleCompany" type="text" class="validate" name="vehicleCompany">
+                <label for="carModel">Vehicle Company</label>
+            </div>
+        </div>
+           <div class="row">
+            <div class="col s12">
+            <div class="row">
+                <div class="input-field col s12">
+                <input type="text" id="autocomplete-input" class="autocomplete" name="vehicleType">
+                <label for="autocomplete-input">Vehicle Type</label>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button  class=" modal-action modal-close waves-effect waves-green btn-flat" type="submit">Submit</button>
+        <button  class=" modal-action modal-close waves-effect waves-green btn-flat" type="reset">Clear</button>
+    </div>
+</div>
+</form>
+</div>
+
+  <!-- Dropdown Structure -->
+  <ul id='dropdown1' class='dropdown-content'>
+    <li><a href="#!">one</a></li>
+    <li><a href="#!">two</a></li>
+    <li class="divider"></li>
+    <li><a href="#!">three</a></li>
+    <li><a href="#!"><i class="material-icons">view_module</i>four</a></li>
+    <li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
+  </ul>
+
+<div class="fixed-action-btn">
+    <a href="#modal1" class="btn-floating btn-large blue darken-2 btn modal-trigger">
+        <i class="large material-icons">add</i>
+    </a>

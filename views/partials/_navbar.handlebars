@@ -1,0 +1,43 @@
+<div class="navbar-fixed">
+  <nav class="indigo darken-4">
+    <div class="nav-wrapper">
+      <a href="#!" class="brand-logo">Park N Go</a>
+      <a href="#" data-activates="mobile-demo" class="button-collapse">
+        <i class="material-icons">menu</i>
+      </a>
+      <ul class="right hide-on-med-and-down">
+     
+        {{#if user}}
+        <li>
+          <a href="/admin/dashboard">Home</a>
+        </li>
+        <li>
+          <a href="/user/logout">Logout</a>
+        </li>
+        {{else}}
+         <li>
+          <a href="/">Home</a>
+        </li>
+        <li>
+          <a href="/user/login">Login</a>
+        </li>
+        {{/if}}
+        <li>
+          <a href="/about">About Us</a>
+        </li>
+      </ul>
+      <ul class="side-nav" id="mobile-demo">
+        <li>
+          <a href="/">Home</a>
+        </li>
+        <li>
+          <a href="/user/login">User Login</a>
+        </li>
+    
+        <li>
+          <a href="/about">About Us</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>

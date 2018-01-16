@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Park N Go</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    #map {
+      height: 400px;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  {{> _navbar}}
+  <div class="container">
+    {{> _msg}} {{{body}}}
+  </div>
+  {{> _footer}}
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+  <script src="/js/genralScript.js"></script>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChgkxmoEX_vqVlGpAqKgxd4qcAPQaKVHA"></script>
+  <script src="/js/sockets.js"></script>
+  <script src="/js/maps.js"></script>
+  <script>
+    $('#alert_close').click(function () {
+      $("#card-alert").fadeOut("slow", function () {});
+    });
+
+    $(document).ready(function () {
+      $('.modal').modal();
+      $('.collapsible').collapsible();
+      $('input.autocomplete').autocomplete({
+        data: {
+          "Apple": null,
+          "Microsoft": null,
+          "Google": 'https://placehold.it/250x250'
+        },
+        limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
+        onAutocomplete: function (val) {
+          // Callback function when value is autcompleted.
+        },
+        minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
+      });
+    });
+  </script>
+</body>
+
+</html>
