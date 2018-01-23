@@ -49,13 +49,34 @@ Router.post('/login', (req, res) => {
 });
 
 Router.post('/register', (req, res) => {
-    let body = _.pick(req.body, ['email', 'password', 'role', 'phone', 'address', 'license_no', 'profile_url']);
+    let body = _.pick(req.body, ['email', 'name','password', 'role', 'phone', 'address', 'license_no', 'profile_url']);
     if(body.role == 'admin' || body.role == 'user') {
         let newUser = new User(body);
     newUser.save().then(() => {
         return newUser.generateAuthToken();
     }).then((token) => {
         res.header('x-auth', token).send(newUser);
+        if(newUser.role == 'user'){
+            let vehicleObj = {
+                UserId:newUser._id,
+                vehicleInfo:[]
+            };
+            let newVehicle = new Vehicle(vehicleObj);
+            newVehicle.save().then((vehicle)=>{
+                let reservationObj = {
+                    VehicleID:vehicle._id,
+                    Reservation_Info:[]
+                }
+                let newReservation = new Reservation(reservationObj);
+                newReservation.save().then((reservation) => {
+                    console.log("Done Reservation")
+                }).catch((e) => {
+
+                });
+            }).catch((e)=>{
+                console.log(e)
+            })
+        }
     }).catch((e) => {
         res.status(400).send(e);
     })
@@ -121,32 +142,35 @@ Router.get('/travelDistance', auth, userSessionHelper, (req, res) => {
 
 Router.get('/history', auth, userSessionHelper, (req, res) => {
     let uid = req.user._id;
-    Reservation.findByVehicleId(uid).then((vehicle) => {
-         console.log('hello');
-        if(!vehicle) {
-            res.render('users/history');
-        }
-        console.log(vehicle.vehicleInfo[0]);
-        let vehicles = vehicle.vehicleInfo;
-        return res.render('users/history',{
-            vehicle:vehicles,
-            user:req.user.name
-        });
-     }).catch((e) => {
-        res.status(401).send(e);
-     });
-});
+    let vid;
+    console.log(req.user.name , uid);
+    Vehicle.findByUserId(uid).then((vehicle) => {
+        console.log('hello');
+       if(!vehicle) {
+           console.log('null vehicle');
+       }
+       vid = vehicle._id;
+       console.log('vid ',vid);
+    }).catch((e) => {
+       res.status(401).send(e);
+    });
 
+    Reservation.findByVehicleId(vid).then((reservation) => {
+        console.log('in reservartion');
+    if(!reservation) {
+        res.send('no reservartion');
+    }
+    res.send(reservation);
+ }).catch((e) => {
+    console.log(e);
+ });
+
+
+    
+});
 Router.get('/car', auth, userSessionHelper, (req, res) => {
     let uid = req.user._id;
-    console.log(uid);
-    console.log(req.user.name);
      Vehicle.findByUserId(uid).then((vehicle) => {
-         console.log('hello');
-        if(!vehicle) {
-            res.render('users/car');
-        }
-        console.log(vehicle.vehicleInfo[0]);
         let vehicles = vehicle.vehicleInfo;
         //  vehicles("user") = req.user.name;
         // console.log(vehicles);
@@ -155,7 +179,7 @@ Router.get('/car', auth, userSessionHelper, (req, res) => {
             user:req.user.name
         });
      }).catch((e) => {
-        res.status(401).send(e);
+        res.render('users/car');
      });
     
 });

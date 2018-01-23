@@ -8,7 +8,7 @@ let VehicleSchema = new Schema({
         required: true,
         ref: 'Users'
     },
-
+    
     vehicleInfo : [{
         vehicleType : {
             type: String,
@@ -31,9 +31,11 @@ let VehicleSchema = new Schema({
 
 VehicleSchema.statics.findByUserId = function(UserId) {
     console.log('h3llo');
+    console.log('UserId in vehicle',UserId)
     let Vehicle = this;
     return Vehicle.findOne({UserId}).then((vehicle) => {
         if(!vehicle) {
+            console.log("Vehicle Nhi Mila");
             return Promise.reject();
         }
         return Promise.resolve(vehicle);

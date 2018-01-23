@@ -4,8 +4,6 @@ let validator = require('validator');
 let _ = require('lodash');
 let jwt = require('jsonwebtoken');
 require('dotenv/config');
-
-
 let Schema = mongoose.Schema;
 let UserSchema = new Schema({
     name : {
