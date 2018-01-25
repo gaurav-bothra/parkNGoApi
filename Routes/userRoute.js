@@ -64,7 +64,7 @@ Router.post('/register', (req, res) => {
             let newVehicle = new Vehicle(vehicleObj);
             newVehicle.save().then((vehicle)=>{
                 let reservationObj = {
-                    VehicleID:vehicle._id,
+                    UserVehicleId:vehicle._id,
                     Reservation_Info:[]
                 }
                 let newReservation = new Reservation(reservationObj);
@@ -141,33 +141,27 @@ Router.get('/travelDistance', auth, userSessionHelper, (req, res) => {
 });
 
 Router.get('/history', auth, userSessionHelper, (req, res) => {
-    let uid = req.user._id;
-    let vid;
-    console.log(req.user.name , uid);
-    Vehicle.findByUserId(uid).then((vehicle) => {
-        console.log('hello');
-       if(!vehicle) {
-           console.log('null vehicle');
-       }
-       vid = vehicle._id;
-       console.log('vid ',vid);
-    }).catch((e) => {
-       res.status(401).send(e);
-    });
+//     let uid = req.user._id;
+//     let vid;
+//     console.log(req.user.name , uid);
+//     Vehicle.findByUserId(uid).then((vehicle) => {
+//         if(!vehicle) {
+            
+//         }
 
-    Reservation.findByVehicleId(vid).then((reservation) => {
-        console.log('in reservartion');
-    if(!reservation) {
-        res.send('no reservartion');
-    }
-    res.send(reservation);
- }).catch((e) => {
-    console.log(e);
+//     }).catch((e) => {
+//     });
+
+//     Reservation.findByVehicleId(vid).then((reservation) => {
+//         console.log('in reservartion');
+//     if(!reservation) {
+//         res.send('no reservartion');
+//     }
+//     // res.send(reservation);
+//  }).catch((e) => {
+//     console.log(e);
+    res.render('users/history')
  });
-
-
-    
-});
 Router.get('/car', auth, userSessionHelper, (req, res) => {
     let uid = req.user._id;
      Vehicle.findByUserId(uid).then((vehicle) => {
