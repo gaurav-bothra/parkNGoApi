@@ -1,4 +1,5 @@
 let express = require('express');
+let cfenv = require('cfenv');
 let app = express();
 let bodyParser = require('body-parser');
 let exphbs  = require('express-handlebars');
@@ -64,6 +65,7 @@ app.use((req, res, next) => {
     res.locals.error_msg = req.flash('error_msg');
     res.locals.error = req.flash('error');
     res.locals.user = req.session.user || null;
+    res.locals.userInfo = req.session.userInfo || null;
     next();
 });
 
@@ -107,10 +109,12 @@ app.post('/returnAddress' ,(req, res) => {
 
 });
 
+var appEnv = cfenv.getAppEnv();
+
 // geocoder.reverse({lat:23.0962362, lon:72.5966967}, function(err, res) {
     
 //   });
 
-server.listen(process.env.SERVER_PORT, () => {
-    console.log(`App is running at port :  ${process.env.SERVER_PORT}`);
+server.listen(appEnv.port, '0.0.0.0', function(){ 
+    console.log("server starting on " + appEnv.url);
 });

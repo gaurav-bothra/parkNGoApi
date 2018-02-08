@@ -9,7 +9,7 @@ require('../models/Reservation');
 let User = mongoose.model('Users');
 let Vehicle = mongoose.model('Vehicles');
 let Reservation = mongoose.model('Reservations');
-let userSessionHelper = require('../auth/UserSessionHelper');
+let userSessionHelper = require('../auth/UserSession');
 let adminSessionHelper = require('../auth/adminSessionHelper');
 let auth = require('../auth/auth');
 
@@ -30,12 +30,14 @@ Router.post('/login', (req, res) => {
     User.findByCredentials(body.email, body.password).then((user) => {    
         if(user.role == 'user') {
             req.session.user = user.role;
+            req.session.userInfo = user;
             res.header('x-auth', user.tokens[0].token);
             req.session.x_token = user.tokens[0].token;
             
             res.redirect('/user/dashboard');
         } else if(user.role == 'admin') {
             req.session.user = user.role;
+            req.session.userInfo = user;
             res.header('x-auth', user.tokens[0].token);
             req.session.x_token = user.tokens[0].token;
             
@@ -166,8 +168,6 @@ Router.get('/car', auth, userSessionHelper, (req, res) => {
     let uid = req.user._id;
      Vehicle.findByUserId(uid).then((vehicle) => {
         let vehicles = vehicle.vehicleInfo;
-        //  vehicles("user") = req.user.name;
-        // console.log(vehicles);
         return res.render('users/car',{
             vehicle:vehicles,
             user:req.user.name

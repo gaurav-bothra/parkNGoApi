@@ -16,7 +16,9 @@ let options = {
     integer: true
 }
 require('../models/User');
+require('../models/Vehicle')
 let users = mongoose.model('Users');
+let vehicle = mongoose.model('Vehicles');
 Router.post('/user/login', (req, res) => {
     let body = _.pick(req.body,['email','password']);
     users.findByCredentials(body.email, body.password).then((user) => { 
@@ -94,7 +96,15 @@ Router.post('/user/verify', (req, res) => {
     
 });
 
-
+Router.get('/user/cars/:id', (req, res) => {
+    let id = req.params.id;
+    console.log('aaya api route req',id)
+    vehicle.findByUserId(id).then((vehicle) => {
+        res.json(vehicle);
+     }).catch((e) => {
+        res.send(`Sorry you are not registered user`).status(200);
+     });
+});
 
 
 module.exports = Router;

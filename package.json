@@ -4,7 +4,7 @@
   "description": "This is an api for Parking Managnement System",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
   "keywords": [
     "park",
@@ -16,6 +16,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
+    "cfenv": "^1.0.4",
     "connect-flash": "^0.1.1",
     "cors": "^2.8.4",
     "dotenv": "^4.0.0",
@@ -30,5 +31,8 @@
     "random-number": "0.0.9",
     "socket.io": "^2.0.4",
     "validator": "^9.2.0"
-  }
+  },
+  "engines": {
+		"node": "6.x"
+	} 
 }
