@@ -30,7 +30,7 @@
     "node-geocoder": "^3.21.1",
     "random-number": "0.0.9",
     "socket.io": "^2.0.4",
-    "validator": "^9.2.0"
+    "validator": "^13.7.0"
   },
   "engines": {
 		"node": "6.x"
