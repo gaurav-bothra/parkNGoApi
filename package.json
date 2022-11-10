@@ -29,7 +29,7 @@
     "nexmo": "^2.1.1",
     "node-geocoder": "^3.21.1",
     "random-number": "0.0.9",
-    "socket.io": "^2.0.4",
+    "socket.io": "^2.5.0",
     "validator": "^9.2.0"
   },
   "engines": {
